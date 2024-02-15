@@ -1,4 +1,3 @@
-// routes/users.js
 import express from "express";
 import {
   createUser,
@@ -9,11 +8,9 @@ import { isAuth } from "../middlewares/authorization/userAuth.js";
 
 const router = express.Router();
 
-// Create a new user
 router.post("/signup", createUser);
 router.post("/signin", signInUser);
+// Authorize route
 router.get("/users", isAuth, getAllUsers);
-
-// Add more routes as needed
 
 export default router;

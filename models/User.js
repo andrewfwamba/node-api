@@ -1,4 +1,3 @@
-// models/User.js
 import { DataTypes } from "sequelize";
 import bcrypt from "bcrypt";
 import sequelize from "../services/db.js";
