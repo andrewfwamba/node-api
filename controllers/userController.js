@@ -49,10 +49,21 @@ export const signInUser = async (req, res) => {
     const token = jwt.sign(
       { id: user.id, username: user.username, email: user.email },
       process.env.JWT_SECRET,
-      { expiresIn: "1s" }
+      { expiresIn: "1d" }
     );
+    let newUser = [
+      {
+        username: user.username,
+        email: user.email,
+      },
+    ];
 
-    res.json({ success: true, message: "Sign in successful", token });
+    res.json({
+      success: true,
+      message: "Sign in successful",
+      user: newUser,
+      token,
+    });
   } catch (error) {
     console.error("Error signing in:", error);
     res.status(500).json({
@@ -65,12 +76,16 @@ export const signInUser = async (req, res) => {
 // Get all users
 export const getAllUsers = async (req, res) => {
   try {
-    const users = await User.findAll();
+    const users = await User.findAll({
+      attributes: ["username", "email", "createdAt"],
+    });
     res.json({ success: true, users });
   } catch (error) {
     console.error("Error fetching users:", error);
-    res
-      .status(500)
-      .json({ message: "Internal Server Error", error: error.message });
+    res.status(500).json({
+      success: false,
+      message: "Internal Server Error",
+      error: error.message,
+    });
   }
 };
