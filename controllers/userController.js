@@ -89,3 +89,20 @@ export const getAllUsers = async (req, res) => {
     });
   }
 };
+
+export const getUser = async (req, res) => {
+  try {
+    const { user } = req;
+    const userdetails = await User.findByPk(user.id, {
+      attributes: ["username", "email", "createdAt"],
+    });
+    res.json({ success: true, userdetails });
+  } catch (error) {
+    console.error("Error fetching userdetails", error);
+    res.status(500).json({
+      success: false,
+      message: "Internal Server Error",
+      error: error.message,
+    });
+  }
+};
