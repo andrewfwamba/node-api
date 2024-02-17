@@ -12,6 +12,10 @@ export const isAuth = async (req, res, next) => {
       if (!user) {
         return res.json({ success: false, message: "Unauthorized access" });
       }
+      // Check if the user is the current authenticated user
+      if (user.id.toString() != decoded.id) {
+        return res.status(403).json({ message: "Forbidden" });
+      }
 
       req.user = user;
       next();
