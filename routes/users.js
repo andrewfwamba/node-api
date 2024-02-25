@@ -9,6 +9,7 @@ import { isAuth } from "../middlewares/authorization/userAuth.js";
 import {
   validateSignup,
   userValidation,
+  validateUserSignIn,
 } from "../middlewares/validation/validation.js";
 
 const router = express.Router();
