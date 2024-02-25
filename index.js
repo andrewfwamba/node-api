@@ -1,10 +1,13 @@
 import express from "express";
 import userRoutes from "./routes/users.js";
+import OAuthRoutes from "./routes/OAuth.js";
 import db from "./services/db.js";
+import passport from "./utilities/passport-config.js";
 import dotenv from "dotenv";
 dotenv.config();
 
 const app = express();
+app.use(passport.initialize());
 const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
@@ -18,6 +21,7 @@ db.sync()
   });
 
 app.use(userRoutes);
+app.use(OAuthRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
