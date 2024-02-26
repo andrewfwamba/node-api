@@ -4,6 +4,7 @@ import OAuthRoutes from "./routes/OAuth.js";
 import db from "./services/db.js";
 import passport from "./utilities/passport-config.js";
 import dotenv from "dotenv";
+import { scheduleCleanupTask } from "./services/tokenCleanup.js";
 dotenv.config();
 
 const app = express();
@@ -19,6 +20,7 @@ db.sync()
   .catch((error) => {
     console.error("Error synchronizing database:", error);
   });
+scheduleCleanupTask();
 
 app.use(userRoutes);
 app.use(OAuthRoutes);
