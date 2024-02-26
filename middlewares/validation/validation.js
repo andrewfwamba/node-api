@@ -31,6 +31,14 @@ export const validateUserSignIn = [
     .isEmpty()
     .withMessage("email/password is required"),
 ];
+export const initResetpassword = [
+  check("email").trim().isEmail().withMessage("email is required"),
+];
+export const resetPassValidation = [
+  check("email").trim().isEmail().withMessage("email is required"),
+  check("otp").trim().not().isEmpty().withMessage("OTP is required"),
+  check("password").trim().not().isEmpty().withMessage("Password is required"),
+];
 
 export const userValidation = (req, res, next) => {
   const result = validationResult(req).array();
