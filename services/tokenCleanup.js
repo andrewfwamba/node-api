@@ -9,9 +9,9 @@ export const deleteExpiredTokens = async () => {
       where: { expiry: { [Op.lt]: new Date() } },
     });
     if (!token) {
-      return console.log("No expired token to delete");
+      return; //console.log("No expired token to delete");
     }
-    console.log("Expired tokens deleted successfully");
+    return; //console.log("Expired tokens deleted successfully");
   } catch (error) {
     console.error("Error deleting expired tokens:", error);
   }
@@ -19,6 +19,6 @@ export const deleteExpiredTokens = async () => {
 
 // Schedule the cleanup task to run every 30 minutes
 export const scheduleCleanupTask = () => {
-  // Set up a recurring job to run every 30 minutes
-  setInterval(deleteExpiredTokens, 30 * 60 * 1000);
+  // Set up a recurring job to run every 15 minutes
+  setInterval(deleteExpiredTokens, 15 * 60 * 1000);
 };
